@@ -1,12 +1,17 @@
 [
-  {
-    "city": "Portland",
-    "bedrooms": 4,
-    "owner": "Jason"
-  },
-  {
-    "city": "Seattle",
-    "bedrooms": 6,
-    "owner": "Steve"
-  }
+    {
+        "city": "Portland",
+        "bedrooms": 4,
+        "owner": "Jason"
+    },
+    {
+        "city": "Seattle",
+        "bedrooms": 6,
+        "owner": "Steve"
+    },
+    {
+        "city": "Denver",
+        "owner": "Bob",
+        "bedrooms": "2"
+    }
 ]
