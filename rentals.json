@@ -1,0 +1,12 @@
+[
+  {
+    "city": "Portland",
+    "bedrooms": 4,
+    "owner": "Jason"
+  },
+  {
+    "city": "Seattle",
+    "bedrooms": 6,
+    "owner": "Steve"
+  }
+]
