@@ -13,5 +13,10 @@
         "city": "Denver",
         "owner": "Bob",
         "bedrooms": "2"
+    },
+    {
+        "city": "Detroit",
+        "owner": "Time",
+        "bedrooms": "7"
     }
 ]
