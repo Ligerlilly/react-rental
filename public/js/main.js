@@ -113,6 +113,10 @@ var Rental = React.createClass({
 });
 
 var RentalForm = React.createClass({
+  hideForm: function() {
+    $('.rentalForm').hide();
+    $('.showForm').show();
+  },
   handleSubmit: function(e) {
     e.preventDefault();
     $(".rentalForm").hide();
@@ -138,11 +142,14 @@ var RentalForm = React.createClass({
           <input type='text' className='form-control' placeholder='Enter owner'  ref='owner' />
           <input type='text' className='form-control' placeholder='Enter bedrooms' ref='bedrooms' />
         </div>
-        <button type='submit' value='Post' className='btn btn-info'>Post</button>
+        <button className='btn btn-danger' onClick={this.hideForm}>Cancel</button>
+        <button type='submit' value='Post' className='btn btn-success'>Post</button>
+
       </form>
     );
   }
 });
+
 
 var ShowForm = React.createClass({
   onClick: function() {
@@ -151,7 +158,7 @@ var ShowForm = React.createClass({
   },
   render: function() {
     return (
-      <button className='showForm btn btn-success' onClick={this.onClick}>Add Rental</button>
+      <button className='showForm btn btn-primary' onClick={this.onClick}>Add Rental</button>
     );
   }
 });
