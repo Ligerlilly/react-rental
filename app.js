@@ -26,15 +26,21 @@ app.post('/rentals.json', function(req, res) {
   });
 });
 
-app.delete('rentals.json', function(req, res) {
+app.delete('/rentals.json', function(req, res) {
+
   fs.readFile('rentals.json', function(err, data) {
     var rentals = JSON.parse(data);
+
     for (var i in rentals) {
+
       if ((rentals[i].city === req.body.city) && (rentals[i].onwer === req.body.onwer)) {
         rentals.splice(i, 1);
+        console.log(rentals);
+
       }
     }
-    fs.writeFile('rental.json', JSON.stringify(rentals, null, 4), function(err) {
+    fs.writeFile('rentals.json', JSON.stringify(rentals), function(err) {
+      console.log(rentals);
       res.setHeader('Cache-Control', 'no-cache');
       res.json(rentals);
     });

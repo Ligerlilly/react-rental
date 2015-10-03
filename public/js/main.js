@@ -32,16 +32,37 @@ var RentalBox = React.createClass({
       }.bind(this)
     });
   },
-  onDelete: function(rental) {
-    console.log(rental);
+  delete: function(rental) {
+    $.ajax({
+      url: this.props.url,
+      dataType: 'json',
+      type: 'DELETE',
+      contentType: 'application/json',
+      data:  JSON.stringify({city: rental.city, owner: rental.owner, bedrooms: rental.bedrooms}),
+      cache: false,
+      success: function(data) {
+        console.log(data);
+        this.setState({data: data});
+      }.bind(this),
+      error: function(xhr, status, err) {
+        console.log(this.props.url, status, err.toString());
+      }.bind(this)
+
+    });
   },
+
+
   render: function() {
     return(
       <div className='rentalBox'>
         <h1>Rentals</h1>
-        <RentalList data={this.state.data} />
-        <RentalForm onRentalSubmit={this.handleRentalSubmit}/>
-        <ShowForm />
+        <div className='row form-button'>
+          <RentalForm onRentalSubmit={this.handleRentalSubmit}/>
+          <ShowForm />
+        </div>
+        <div className='row'>
+          <RentalList data={this.state.data} onHandleDelete={this.delete}/>
+        </div>
       </div>
     );
   }
@@ -49,16 +70,21 @@ var RentalBox = React.createClass({
 
 var RentalList = React.createClass({
 
+  handleDelete: function(data) {
+    this.props.onHandleDelete(data);
+    },
   render: function() {
     var rentalNodes = this.props.data.map(function(rental) {
       return (
-        <Rental city={rental.city} owner={rental.owner} bedrooms={rental.bedrooms} onDelete={this.handleDelete}>
+        <Rental city={rental.city} owner={rental.owner} bedrooms={rental.bedrooms} handleDelete={this.handleDelete}>
           <p>Owner: {rental.owner}</p>
           <p>Number of bedrooms: {rental.bedrooms}</p>
+
         </Rental>
+
       );
 
-    });
+    }.bind(this));
 
     return (
       <div className='RentalList'>
@@ -69,24 +95,18 @@ var RentalList = React.createClass({
 });
 
 var Rental = React.createClass({
-  onClick: function() {
-    console.log({city: this.props.city,
-    owner: this.props.owner});
-    $.ajax({
-      
-    });
-
-
-
+  onDelete: function() {
+   this.props.handleDelete(this.props);
   },
   render: function() {
     return (
-      <div className='rental'>
+      <div className='rental col-sm-3'>
         <h3 className='rentalCity'>
           City: {this.props.city}
         </h3>
         {this.props.children}
-        <a onClick={this.onClick}>delete</a>
+        <a onClick={this.onDelete}>delete</a>
+
      </div>
     );
   }
