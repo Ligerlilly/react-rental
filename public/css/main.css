@@ -1,6 +1,14 @@
 .rentalForm {
   display: none;
 }
+
+.rentalUpdateForm {
+  display: none;
+  margin-top: 1em;
+}
 .form-button {
   margin-left: 1em;
+}
+.showUpdateForm {
+  margin-left: 5px;
 }

@@ -1,3 +1,5 @@
+
+var Rental = require('./components/rental.react');
 var RentalBox = React.createClass({
   getInitialState: function() {
     return { data: [] };
@@ -61,6 +63,9 @@ var RentalBox = React.createClass({
           <ShowForm />
         </div>
         <div className='row'>
+          <UpdateRentalForm />
+        </div>
+        <div className='row'>
           <RentalList data={this.state.data} onHandleDelete={this.delete}/>
         </div>
       </div>
@@ -80,6 +85,7 @@ var RentalList = React.createClass({
           <p>Owner: {rental.owner}</p>
           <p>Number of bedrooms: {rental.bedrooms}</p>
 
+
         </Rental>
 
       );
@@ -94,24 +100,38 @@ var RentalList = React.createClass({
   }
 });
 
-var Rental = React.createClass({
-  onDelete: function() {
-   this.props.handleDelete(this.props);
+
+var UpdateRentalForm = React.createClass({
+  handleSubmit(e) {
+    e.preventDefault();
+
+  },
+  hideForm: function() {
+    $('.rentalUpdateForm').hide();
+    $('.showUpdateForm').show();
   },
   render: function() {
     return (
-      <div className='rental col-sm-3'>
-        <h3 className='rentalCity'>
-          City: {this.props.city}
-        </h3>
-        {this.props.children}
-        <a onClick={this.onDelete}>delete</a>
+      <form className='rentalUpdateForm' onSubmit={this.handleSubmit}>
+        <div className='form-group'>
+          <label>Enter City:</label>
+          <input type='text' className='form-control' placeholder='Enter city' ref='city' />
+        </div>
+        <div className='form-group'>
+          <label>Enter City:</label>
+          <input type='text' className='form-control' placeholder='Enter owner'  ref='owner' />
+        </div>
+        <div className='form-group'>
+          <label>Enter City:</label>
+          <input type='text' className='form-control' placeholder='Enter bedrooms' ref='bedrooms' />
+        </div>
+        <button className='btn btn-danger' onClick={this.hideForm}>Cancel</button>
+        <button type='submit' value='Post' className='btn btn-success'>Post</button>
 
-     </div>
+      </form>
     );
   }
 });
-
 var RentalForm = React.createClass({
   hideForm: function() {
     $('.rentalForm').hide();
@@ -138,14 +158,34 @@ var RentalForm = React.createClass({
     return (
       <form className='rentalForm' onSubmit={this.handleSubmit}>
         <div className='form-group'>
+          <label>Enter City:</label>
           <input type='text' className='form-control' placeholder='Enter city' ref='city' />
+        </div>
+        <div className='form-group'>
+          <label>Enter City:</label>
           <input type='text' className='form-control' placeholder='Enter owner'  ref='owner' />
+        </div>
+        <div className='form-group'>
+          <label>Enter City:</label>
           <input type='text' className='form-control' placeholder='Enter bedrooms' ref='bedrooms' />
         </div>
         <button className='btn btn-danger' onClick={this.hideForm}>Cancel</button>
         <button type='submit' value='Post' className='btn btn-success'>Post</button>
 
       </form>
+    );
+  }
+});
+
+var ShowUpdateForm = React.createClass({
+  onClick: function() {
+
+    $(".rentalUpdateForm").show();
+    $(".showUpdateForm").hide();
+  },
+  render: function() {
+    return (
+      <button className='showUpdateForm btn btn-primary' onClick={this.onClick}>Update Rental</button>
     );
   }
 });
