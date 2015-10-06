@@ -1,1 +1,12 @@
-[{"city":"Detroit","owner":"Time","bedrooms":"7"}]
+[
+    {
+        "city": "Detroit",
+        "owner": "Time",
+        "bedrooms": "7"
+    },
+    {
+        "city": "Berlin",
+        "owner": "Hans",
+        "bedrooms": "4"
+    }
+]

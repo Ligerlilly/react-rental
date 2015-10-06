@@ -18,4 +18,3 @@ var Rental = React.createClass({
     );
   }
 });
-module.exports = Rental;
