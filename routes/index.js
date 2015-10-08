@@ -10,9 +10,9 @@ var Rental = sequelize.define('rental', {
 
 router.get('/rentals.json', function(req, res) {
   var jsonData = []
-  Rental.findAll({attributes: ['city', 'owner', 'bedrooms']}).then(function(data) {
+  Rental.findAll({attributes: ['city', 'owner', 'bedrooms', 'id']}).then(function(data) {
     for (var i = 0; i < data.length; i++) {
-      jsonData.push({ "city": data[i].dataValues.city, 'owner': data[i].dataValues.owner, "bedrooms": data[i].dataValues.bedrooms });
+      jsonData.push({ "city": data[i].dataValues.city, 'owner': data[i].dataValues.owner, "bedrooms": data[i].dataValues.bedrooms, "id": data[i].dataValues.id });
     }
     res.json(jsonData);
   });
@@ -51,17 +51,18 @@ router.post('/rentals.json', function(req, res) {
 });
 //
 // router.delete('/rentals.json', function(req, res) {
-//   fs.readFile('rentals.json', function(err, data) {
-//     var rentals = JSON.parse(data);
-//     for (var i in rentals) {
-//       if ((rentals[i].city === req.body.city) && (rentals[i].onwer === req.body.onwer)) {
-//         rentals.splice(i, 1);
-//       }
-//     }
-//     fs.writeFile('rentals.json', JSON.stringify(rentals), function(err) {
-//       res.setHeader('Cache-Control', 'no-cache');
-//       res.json(rentals);
-//     });
-//   });
+//   Rental.delete({where: req.body.id })
+//   // fs.readFile('rentals.json', function(err, data) {
+//   //   var rentals = JSON.parse(data);
+//   //   for (var i in rentals) {
+//   //     if ((rentals[i].city === req.body.city) && (rentals[i].onwer === req.body.onwer)) {
+//   //       rentals.splice(i, 1);
+//   //     }
+//   //   }
+//   //   fs.writeFile('rentals.json', JSON.stringify(rentals), function(err) {
+//   //     res.setHeader('Cache-Control', 'no-cache');
+//   //     res.json(rentals);
+//   //   });
+//   // });
 // });
 module.exports = router;
