@@ -38,7 +38,7 @@ var RentalBox = React.createClass({
       dataType: 'json',
       type: 'DELETE',
       contentType: 'application/json',
-      data:  JSON.stringify({city: rental.city, owner: rental.owner, bedrooms: rental.bedrooms}),
+      data:  JSON.stringify({city: rental.city, owner: rental.owner, bedrooms: rental.bedrooms, id: rental.id}),
       cache: false,
       success: function(data) {
         console.log(data);
@@ -48,6 +48,23 @@ var RentalBox = React.createClass({
         console.log(this.props.url, status, err.toString());
       }.bind(this)
 
+    });
+  },
+  update: function(data) {
+    $.ajax({
+      url: this.props.url,
+      dataType: 'json',
+      type: 'PUT',
+      contentType: 'application/json',
+      data: JSON.stringify(data),
+      cache: false,
+      success: function(data) {
+        console.log(data);
+        this.setState({ data: data });
+      }.bind(this),
+      error: function(xhr, status, err) {
+        console.log(this.props.url, status, err.toString());
+      }.bind(this)
     });
   },
 
@@ -61,10 +78,7 @@ var RentalBox = React.createClass({
           <ShowForm />
         </div>
         <div className='row'>
-
-        </div>
-        <div className='row'>
-          <RentalList data={this.state.data} onHandleDelete={this.delete}/>
+          <RentalList data={this.state.data} onHandleDelete={this.delete} update={this.update}/>
         </div>
       </div>
     );
@@ -76,16 +90,16 @@ var RentalList = React.createClass({
   handleDelete: function(data) {
     this.props.onHandleDelete(data);
     },
+    update: function(data) {
+      this.props.update(data);
+    },
   render: function() {
     var rentalNodes = this.props.data.map(function(rental) {
       return (
-        <Rental city={rental.city} owner={rental.owner} bedrooms={rental.bedrooms} handleDelete={this.handleDelete}>
+        <Rental city={rental.city} owner={rental.owner} bedrooms={rental.bedrooms} handleDelete={this.handleDelete} id={rental.id} update={this.update}>
           <p>Owner: {rental.owner}</p>
           <p>Number of bedrooms: {rental.bedrooms}</p>
-
-
         </Rental>
-
       );
 
     }.bind(this));
@@ -104,6 +118,9 @@ var Rental = React.createClass({
      this.props.handleDelete(this.props);
    }
   },
+  update: function(data){
+    this.props.update(data);
+  },
   render: function() {
     return (
       <div className='rental col-sm-3'>
@@ -112,37 +129,51 @@ var Rental = React.createClass({
         </h3>
         {this.props.children}
         <a className='btn btn-danger' onClick={this.onDelete}>delete</a>
-        <ShowUpdateForm />
-        <UpdateRentalForm data={this.props}/>
+        <ShowUpdateForm id={this.props.id}/>
+        <UpdateRentalForm data={this.props} id={this.props.id} update={this.update}/>
 
      </div>
     );
   }
 });
 var UpdateRentalForm = React.createClass({
-  handleSubmit(e) {
+  getInitialState: function() {
+    return { values: { city: this.props.data.city, onwer: this.props.data.owner, bedrooms: this.props.data.bedrooms } };
+  },
+  handleSubmit: function(e) {
     e.preventDefault();
+    var city = React.findDOMNode(this.refs.city).value.trim();
+    var owner = React.findDOMNode(this.refs.owner).value.trim();
+    var bedrooms = React.findDOMNode(this.refs.bedrooms).value.trim();
+
+    this.props.update({ city: city, owner: owner, bedrooms: bedrooms, id: this.props.id })
+
+    React.findDOMNode(this.refs.city).value = '';
+    React.findDOMNode(this.refs.owner).value = '';
+    React.findDOMNode(this.refs.bedrooms).value = '';
+    $('.rentalUpdateForm').hide();
+    return;
 
   },
   hideForm: function() {
     $('.rentalUpdateForm').hide();
     $('.showUpdateForm').show();
-    console.log(this);
   },
   render: function() {
+    var values = this.state.values;
     return (
-      <form className='rentalUpdateForm' onSubmit={this.handleSubmit}>
+      <form className='rentalUpdateForm' id={this.props.id} onSubmit={this.handleSubmit}>
         <div className='form-group'>
           <label>Enter City:</label>
-          <input type='text' className='form-control' placeholder='Enter city' ref='city' value={this.props.data.city} />
+          <input type='text' className='form-control' placeholder='Enter city' ref='city' placeholder={values.city} />
         </div>
         <div className='form-group'>
-          <label>Enter City:</label>
-          <input type='text' className='form-control' placeholder='Enter owner'  ref='owner' />
+          <label>Enter Owner:</label>
+          <input type='text' className='form-control' placeholder='Enter owner'  ref='owner' placeholder={values.onwer}/>
         </div>
         <div className='form-group'>
-          <label>Enter City:</label>
-          <input type='text' className='form-control' placeholder='Enter bedrooms' ref='bedrooms' />
+          <label>Enter Bedrooms:</label>
+          <input className='form-control' type="number" min='1' max='99' ref='bedrooms' placeholder='Enter bedrooms' placeholder={values.bedrooms}/>
         </div>
         <button className='btn btn-danger' onClick={this.hideForm}>Cancel</button>
         <button type='submit' value='Post' className='btn btn-success'>Post</button>
@@ -179,15 +210,15 @@ var RentalForm = React.createClass({
       <form className='rentalForm' onSubmit={this.handleSubmit}>
         <div className='form-group'>
           <label>Enter City:</label>
-          <input type='text' className='form-control' placeholder='Enter city' ref='city' />
+          <input type='text' className='form-control' placeholder='Enter city' ref='city' required="required" />
         </div>
         <div className='form-group'>
-          <label>Enter City:</label>
-          <input type='text' className='form-control' placeholder='Enter owner'  ref='owner' />
+          <label>Enter Owner:</label>
+          <input type='text' className='form-control' placeholder='Enter owner'  ref='owner' required="required" />
         </div>
         <div className='form-group'>
-          <label>Enter City:</label>
-          <input type='text' className='form-control' placeholder='Enter bedrooms' ref='bedrooms' />
+          <label>Enter Bedrooms:</label>
+          <input className='form-control' type="number" min='1' max='99' ref='bedrooms' placeholder='Enter bedrooms' required='required' />
         </div>
         <button className='btn btn-danger' onClick={this.hideForm}>Cancel</button>
         <button type='submit' value='Post' className='btn btn-success'>Post</button>
@@ -199,9 +230,8 @@ var RentalForm = React.createClass({
 
 var ShowUpdateForm = React.createClass({
   onClick: function() {
-
-    $(".rentalUpdateForm").show();
-    $(".showUpdateForm").hide();
+    $("#" + this.props.id).show();
+    $("#" + this.props.id + "showUpdateForm").hide();
   },
   render: function() {
     return (
