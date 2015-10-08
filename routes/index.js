@@ -10,7 +10,7 @@ var Rental = sequelize.define('rental', {
 
 router.get('/rentals.json', function(req, res) {
   var jsonData = [];
-  Rental.findAll({attributes: ['city', 'owner', 'bedrooms', 'id']}).then(function(data) {
+  Rental.findAll({attributes: ['city', 'owner', 'bedrooms', 'id'], order: 'id ASC'}).then(function(data) {
     for (var i = 0; i < data.length; i++) {
       jsonData.push({ "city": data[i].dataValues.city, 'owner': data[i].dataValues.owner, "bedrooms": data[i].dataValues.bedrooms, "id": data[i].dataValues.id });
     }
@@ -27,7 +27,7 @@ router.post('/rentals.json', function(req, res) {
     bedrooms: req.body.bedrooms
   }).then(function() {
     var jsonData = [];
-    Rental.findAll({attributes: ['city', 'owner', 'bedrooms', 'id']}).then(function(data) {
+    Rental.findAll({attributes: ['city', 'owner', 'bedrooms', 'id'], order: 'id ASC'}).then(function(data) {
       for (var i = 0; i < data.length; i++) {
         jsonData.push({ "city": data[i].dataValues.city, 'owner': data[i].dataValues.owner, "bedrooms": data[i].dataValues.bedrooms, "id": data[i].dataValues.id  });
       }
@@ -42,7 +42,7 @@ router.post('/rentals.json', function(req, res) {
 router.delete('/rentals.json', function(req, res) {
   Rental.destroy({where: { id: req.body.id } }).then(function(){
     var jsonData = [];
-    Rental.findAll({attributes: ['city', 'owner', 'bedrooms', 'id']}).then(function(data) {
+    Rental.findAll({attributes: ['city', 'owner', 'bedrooms', 'id'], order: 'id ASC'}).then(function(data) {
       for (var i = 0; i < data.length; i++) {
         jsonData.push({ "city": data[i].dataValues.city, 'owner': data[i].dataValues.owner, "bedrooms": data[i].dataValues.bedrooms, "id": data[i].dataValues.id });
       }
@@ -64,7 +64,7 @@ router.put('/rentals.json', function(req, res) {
         bedrooms: bedrooms
       }).then(function()  {
         var jsonData = [];
-        Rental.findAll({attributes: ['city', 'owner', 'bedrooms', 'id']}).then(function(data) {
+        Rental.findAll({attributes: ['city', 'owner', 'bedrooms', 'id'], order: 'id ASC'}).then(function(data) {
           for (var i = 0; i < data.length; i++) {
             jsonData.push({ "city": data[i].dataValues.city, 'owner': data[i].dataValues.owner, "bedrooms": data[i].dataValues.bedrooms, "id": data[i].dataValues.id });
           }

@@ -137,9 +137,9 @@ var Rental = React.createClass({
   }
 });
 var UpdateRentalForm = React.createClass({
-  getInitialState: function() {
-    return { values: { city: this.props.data.city, onwer: this.props.data.owner, bedrooms: this.props.data.bedrooms } };
-  },
+  // getInitialState: function() {
+  //   return { values: { city: this.props.data.city, onwer: this.props.data.owner, bedrooms: this.props.data.bedrooms } };
+  // },
   handleSubmit: function(e) {
     e.preventDefault();
     var city = React.findDOMNode(this.refs.city).value.trim();
@@ -167,20 +167,20 @@ var UpdateRentalForm = React.createClass({
     $('.showUpdateForm').show();
   },
   render: function() {
-    var values = this.state.values;
+    //var values = this.state.values;
     return (
       <form className='rentalUpdateForm' id={this.props.id} onSubmit={this.handleSubmit}>
         <div className='form-group'>
           <label>Enter City:</label>
-          <input type='text' className='form-control' placeholder='Enter city' ref='city' placeholder={values.city} />
+          <input type='text' className='form-control' placeholder='Enter city' ref='city' placeholder='Enter City:' />
         </div>
         <div className='form-group'>
           <label>Enter Owner:</label>
-          <input type='text' className='form-control' placeholder='Enter owner'  ref='owner' placeholder={values.owner}/>
+          <input type='text' className='form-control' placeholder='Enter owner'  ref='owner' placeholder='Enter Owner:'/>
         </div>
         <div className='form-group'>
           <label>Enter Bedrooms:</label>
-          <input className='form-control' type="number" min='1' max='99' ref='bedrooms' placeholder='Enter bedrooms' placeholder={values.bedrooms}/>
+          <input className='form-control' type="number" min='1' max='99' ref='bedrooms' placeholder='Enter bedrooms' placeholder='Enter Bedrooms:'/>
         </div>
         <button className='btn btn-danger' onClick={this.hideForm}>Cancel</button>
         <button type='submit' value='Post' className='btn btn-success'>Post</button>
