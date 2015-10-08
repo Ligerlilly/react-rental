@@ -53,7 +53,13 @@ router.delete('/rentals.json', function(req, res) {
 });
 
 router.put('/rentals.json', function(req, res) {
-  
+  Project.find({ where: {title: 'aProject'} }).on('success', function(project) {
+    if (project) { // if the record exists in the db
+      project.updateAttributes({
+        title: 'a very different title now'
+      }).success(function() {});
+    }
+  })
 });
 
   // fs.readFile('rentals.json', function(err, data) {
