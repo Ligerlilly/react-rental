@@ -1,16 +1,16 @@
 var Sequelize = require('sequelize');
 var sequelize = new Sequelize('postgres://localhost:5432/rentals');
-var rental = sequelize.define('rental', {
+var Rental = sequelize.define('rental', {
   city: Sequelize.STRING,
   owner: Sequelize.STRING,
   bedrooms: Sequelize.INTEGER
 });
 
 sequelize.sync().then(function() {
-  return rental.create({
-    city: 'Detroit',
+  return Rental.create({
+    city: 'Berlin',
     owner: 'Jason',
-    bedrooms: 4
+    bedrooms: 3
   });
 }).then(function(Detroit) {
   console.log(Detroit.get({
