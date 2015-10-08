@@ -15,5 +15,5 @@ sequelize.sync().then(function() {
 }).then(function(Detroit) {
   console.log(Detroit.get({
     plain: true
-  }))
+  }));
 });

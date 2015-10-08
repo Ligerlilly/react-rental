@@ -9,7 +9,7 @@ var Rental = sequelize.define('rental', {
 });
 
 router.get('/rentals.json', function(req, res) {
-  var jsonData = []
+  var jsonData = [];
   Rental.findAll({attributes: ['city', 'owner', 'bedrooms', 'id']}).then(function(data) {
     for (var i = 0; i < data.length; i++) {
       jsonData.push({ "city": data[i].dataValues.city, 'owner': data[i].dataValues.owner, "bedrooms": data[i].dataValues.bedrooms, "id": data[i].dataValues.id });
@@ -26,7 +26,7 @@ router.post('/rentals.json', function(req, res) {
     owner: req.body.owner,
     bedrooms: req.body.bedrooms
   }).then(function() {
-    var jsonData = []
+    var jsonData = [];
     Rental.findAll({attributes: ['city', 'owner', 'bedrooms', 'id']}).then(function(data) {
       for (var i = 0; i < data.length; i++) {
         jsonData.push({ "city": data[i].dataValues.city, 'owner': data[i].dataValues.owner, "bedrooms": data[i].dataValues.bedrooms, "id": data[i].dataValues.id  });
@@ -41,7 +41,7 @@ router.post('/rentals.json', function(req, res) {
 //
 router.delete('/rentals.json', function(req, res) {
   Rental.destroy({where: { id: req.body.id } }).then(function(){
-    var jsonData = []
+    var jsonData = [];
     Rental.findAll({attributes: ['city', 'owner', 'bedrooms', 'id']}).then(function(data) {
       for (var i = 0; i < data.length; i++) {
         jsonData.push({ "city": data[i].dataValues.city, 'owner': data[i].dataValues.owner, "bedrooms": data[i].dataValues.bedrooms, "id": data[i].dataValues.id });
@@ -53,13 +53,26 @@ router.delete('/rentals.json', function(req, res) {
 });
 
 router.put('/rentals.json', function(req, res) {
-  Project.find({ where: {title: 'aProject'} }).on('success', function(project) {
-    if (project) { // if the record exists in the db
-      project.updateAttributes({
-        title: 'a very different title now'
-      }).success(function() {});
+  Rental.find({ where: {id: req.body.id} }).then(function(rental) {
+    if (rental) { // if the record exists in the db
+      var city = req.body.city !== '' ? req.body.city : rental.city;
+      var owner = req.body.owner !== '' ? req.body.owner : rental.owner;
+      var bedrooms = req.body.bedrooms !== '' ? req.body.bedrooms : rental.bedrooms;
+      rental.updateAttributes({
+        city: city,
+        owner: owner,
+        bedrooms: bedrooms
+      }).then(function()  {
+        var jsonData = [];
+        Rental.findAll({attributes: ['city', 'owner', 'bedrooms', 'id']}).then(function(data) {
+          for (var i = 0; i < data.length; i++) {
+            jsonData.push({ "city": data[i].dataValues.city, 'owner': data[i].dataValues.owner, "bedrooms": data[i].dataValues.bedrooms, "id": data[i].dataValues.id });
+          }
+          res.json(jsonData);
+        });
+      });
     }
-  })
+  });
 });
 
   // fs.readFile('rentals.json', function(err, data) {
