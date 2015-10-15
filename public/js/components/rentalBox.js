@@ -33,6 +33,7 @@ var RentalBox = React.createClass({
     });
   },
   delete: function(rental) {
+
     $.ajax({
       url: this.props.url,
       dataType: 'json',

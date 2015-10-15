@@ -1,8 +1,7 @@
 var ShowUpdateForm = React.createClass({
   onClick: function() {
-
-    $(".rentalUpdateForm").show();
-    $(".showUpdateForm").hide();
+    $("#" + this.props.id).show();
+    $("#" + this.props.id + "showUpdateForm").hide();
   },
   render: function() {
     return (

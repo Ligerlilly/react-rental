@@ -2,6 +2,7 @@ var RentalForm = React.createClass({
   hideForm: function() {
     $('.rentalForm').hide();
     $('.showForm').show();
+
   },
   handleSubmit: function(e) {
     e.preventDefault();
@@ -25,15 +26,15 @@ var RentalForm = React.createClass({
       <form className='rentalForm' onSubmit={this.handleSubmit}>
         <div className='form-group'>
           <label>Enter City:</label>
-          <input type='text' className='form-control' placeholder='Enter city' ref='city' />
+          <input type='text' className='form-control' placeholder='Enter city' ref='city' required="required" />
         </div>
         <div className='form-group'>
-          <label>Enter City:</label>
-          <input type='text' className='form-control' placeholder='Enter owner'  ref='owner' />
+          <label>Enter Owner:</label>
+          <input type='text' className='form-control' placeholder='Enter owner'  ref='owner' required="required" />
         </div>
         <div className='form-group'>
-          <label>Enter City:</label>
-          <input type='text' className='form-control' placeholder='Enter bedrooms' ref='bedrooms' />
+          <label>Enter Bedrooms:</label>
+          <input className='form-control' type="number" min='1' max='99' ref='bedrooms' placeholder='Enter bedrooms' required='required' />
         </div>
         <button className='btn btn-danger' onClick={this.hideForm}>Cancel</button>
         <button type='submit' value='Post' className='btn btn-success'>Post</button>
