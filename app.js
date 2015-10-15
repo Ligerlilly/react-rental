@@ -6,13 +6,7 @@ var app = express();
 
 var routes = require('./routes/index');
 
-var Sequelize = require('sequelize');
-var sequelize = new Sequelize('postgres://localhost:5432/rentals');
-var Rental = sequelize.define('rental', {
-  city: Sequelize.STRING,
-  owner: Sequelize.STRING,
-  bedrooms: Sequelize.INTEGER
-});
+
 
 app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.json());

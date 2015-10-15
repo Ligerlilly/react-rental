@@ -3,7 +3,7 @@ var gulp = require('gulp'),
 
 
 gulp.task('js', function(){
-  gulp.src([ "./public/js/components/**.react.js", './public/js/main.js', ])
+  gulp.src([ "./public/js/components/**.js", './public/js/test.js', ])
     .pipe(concat('main.js'))
     .pipe(gulp.dest('./public/build'));
 });
