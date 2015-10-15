@@ -9,7 +9,3 @@ var ShowForm = React.createClass({
     );
   }
 });
-
-React.render(
-  <RentalBox url='rentals.json'/>, document.getElementById('content')
-);

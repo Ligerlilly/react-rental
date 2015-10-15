@@ -4,6 +4,9 @@ var Rental = React.createClass({
      this.props.handleDelete(this.props);
    }
   },
+  update: function(data){
+    this.props.update(data);
+  },
   render: function() {
     return (
       <div className='rental col-sm-3'>
@@ -12,7 +15,8 @@ var Rental = React.createClass({
         </h3>
         {this.props.children}
         <a className='btn btn-danger' onClick={this.onDelete}>delete</a>
-        <ShowUpdateForm />
+        <ShowUpdateForm id={this.props.id}/>
+        <UpdateRentalForm data={this.props} id={this.props.id} update={this.update}/>
 
      </div>
     );
