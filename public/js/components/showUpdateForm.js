@@ -1,5 +1,6 @@
 var ShowUpdateForm = React.createClass({
   onClick: function() {
+    // debugger;
     $("#" + this.props.id).show();
     $("#" + this.props.id + "showUpdateForm").hide();
   },

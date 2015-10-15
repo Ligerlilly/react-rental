@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var Sequelize = require('sequelize');
-var sequelize = new Sequelize('postgres://lono:monkeypoo0@localhost:5432/rentals');
+var sequelize = new Sequelize('postgres://localhost:5432/rentals');
 var Rental = sequelize.define('rental', {
   city: Sequelize.STRING,
   owner: Sequelize.STRING,
