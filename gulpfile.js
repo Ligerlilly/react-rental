@@ -4,7 +4,7 @@ var gulp = require('gulp'),
 
 
 gulp.task('js', function(){
-  gulp.src([ "./public/js/components/**.js", './public/js/test.js', ])
+  gulp.src([ "./public/js/components/**.js", './public/js/main.js' ])
     .pipe(concat('main.js'))
     .pipe(react())
     .pipe(gulp.dest('./public/build'));

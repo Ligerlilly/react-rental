@@ -238,3 +238,8 @@ var UpdateRentalForm = React.createClass({displayName: "UpdateRentalForm",
     );
   }
 });
+
+
+React.render(
+  React.createElement(RentalBox, {url: "rentals.json"}), document.getElementById('content')
+);
