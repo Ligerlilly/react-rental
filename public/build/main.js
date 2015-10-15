@@ -6,12 +6,12 @@ var Rental = React.createClass({displayName: "Rental",
   },
   render: function() {
     return (
-      React.createElement("div", {className: "rental col-sm-3"}, 
-        React.createElement("h3", {className: "rentalCity"}, 
+      React.createElement("div", {className: "rental col-sm-3"},
+        React.createElement("h3", {className: "rentalCity"},
           "City: ", this.props.city
-        ), 
-        this.props.children, 
-        React.createElement("a", {className: "btn btn-danger", onClick: this.onDelete}, "delete"), 
+        ),
+        this.props.children,
+        React.createElement("a", {className: "btn btn-danger", onClick: this.onDelete}, "delete"),
         React.createElement(ShowUpdateForm, null)
 
      )
@@ -92,13 +92,13 @@ var RentalBox = React.createClass({displayName: "RentalBox",
 
   render: function() {
     return(
-      React.createElement("div", {className: "rentalBox"}, 
-        React.createElement("h1", null, "Rentals"), 
-        React.createElement("div", {className: "row form-button"}, 
-          React.createElement(RentalForm, {onRentalSubmit: this.handleRentalSubmit}), 
+      React.createElement("div", {className: "rentalBox"},
+        React.createElement("h1", null, "Rentals"),
+        React.createElement("div", {className: "row form-button"},
+          React.createElement(RentalForm, {onRentalSubmit: this.handleRentalSubmit}),
           React.createElement(ShowForm, null)
-        ), 
-        React.createElement("div", {className: "row"}, 
+        ),
+        React.createElement("div", {className: "row"},
           React.createElement(RentalList, {data: this.state.data, onHandleDelete: this.delete, update: this.update})
         )
       )
@@ -130,20 +130,20 @@ var RentalForm = React.createClass({displayName: "RentalForm",
   },
   render: function() {
     return (
-      React.createElement("form", {className: "rentalForm", onSubmit: this.handleSubmit}, 
-        React.createElement("div", {className: "form-group"}, 
-          React.createElement("label", null, "Enter City:"), 
+      React.createElement("form", {className: "rentalForm", onSubmit: this.handleSubmit},
+        React.createElement("div", {className: "form-group"},
+          React.createElement("label", null, "Enter City:"),
           React.createElement("input", {type: "text", className: "form-control", placeholder: "Enter city", ref: "city"})
-        ), 
-        React.createElement("div", {className: "form-group"}, 
-          React.createElement("label", null, "Enter City:"), 
+        ),
+        React.createElement("div", {className: "form-group"},
+          React.createElement("label", null, "Enter City:"),
           React.createElement("input", {type: "text", className: "form-control", placeholder: "Enter owner", ref: "owner"})
-        ), 
-        React.createElement("div", {className: "form-group"}, 
-          React.createElement("label", null, "Enter City:"), 
+        ),
+        React.createElement("div", {className: "form-group"},
+          React.createElement("label", null, "Enter City:"),
           React.createElement("input", {type: "text", className: "form-control", placeholder: "Enter bedrooms", ref: "bedrooms"})
-        ), 
-        React.createElement("button", {className: "btn btn-danger", onClick: this.hideForm}, "Cancel"), 
+        ),
+        React.createElement("button", {className: "btn btn-danger", onClick: this.hideForm}, "Cancel"),
         React.createElement("button", {type: "submit", value: "Post", className: "btn btn-success"}, "Post")
 
       )
@@ -159,8 +159,8 @@ var RentalList = React.createClass({displayName: "RentalList",
   render: function() {
     var rentalNodes = this.props.data.map(function(rental) {
       return (
-        React.createElement(Rental, {city: rental.city, owner: rental.owner, bedrooms: rental.bedrooms, handleDelete: this.handleDelete}, 
-          React.createElement("p", null, "Owner: ", rental.owner), 
+        React.createElement(Rental, {city: rental.city, owner: rental.owner, bedrooms: rental.bedrooms, handleDelete: this.handleDelete},
+          React.createElement("p", null, "Owner: ", rental.owner),
           React.createElement("p", null, "Number of bedrooms: ", rental.bedrooms)
 
 
@@ -171,7 +171,7 @@ var RentalList = React.createClass({displayName: "RentalList",
     }.bind(this));
 
     return (
-      React.createElement("div", {className: "RentalList"}, 
+      React.createElement("div", {className: "RentalList"},
         rentalNodes
       )
     );
@@ -189,10 +189,6 @@ var ShowForm = React.createClass({displayName: "ShowForm",
     );
   }
 });
-
-React.render(
-  React.createElement(RentalBox, {url: "rentals.json"}), document.getElementById('content')
-);
 
 var ShowUpdateForm = React.createClass({displayName: "ShowUpdateForm",
   onClick: function() {
@@ -218,20 +214,20 @@ var UpdateRentalForm = React.createClass({displayName: "UpdateRentalForm",
   },
   render: function() {
     return (
-      React.createElement("form", {className: "rentalUpdateForm", onSubmit: this.handleSubmit}, 
-        React.createElement("div", {className: "form-group"}, 
-          React.createElement("label", null, "Enter City:"), 
+      React.createElement("form", {className: "rentalUpdateForm", onSubmit: this.handleSubmit},
+        React.createElement("div", {className: "form-group"},
+          React.createElement("label", null, "Enter City:"),
           React.createElement("input", {type: "text", className: "form-control", placeholder: "Enter city", ref: "city"})
-        ), 
-        React.createElement("div", {className: "form-group"}, 
-          React.createElement("label", null, "Enter City:"), 
+        ),
+        React.createElement("div", {className: "form-group"},
+          React.createElement("label", null, "Enter City:"),
           React.createElement("input", {type: "text", className: "form-control", placeholder: "Enter owner", ref: "owner"})
-        ), 
-        React.createElement("div", {className: "form-group"}, 
-          React.createElement("label", null, "Enter City:"), 
+        ),
+        React.createElement("div", {className: "form-group"},
+          React.createElement("label", null, "Enter City:"),
           React.createElement("input", {type: "text", className: "form-control", placeholder: "Enter bedrooms", ref: "bedrooms"})
-        ), 
-        React.createElement("button", {className: "btn btn-danger", onClick: this.hideForm}, "Cancel"), 
+        ),
+        React.createElement("button", {className: "btn btn-danger", onClick: this.hideForm}, "Cancel"),
         React.createElement("button", {type: "submit", value: "Post", className: "btn btn-success"}, "Post")
 
       )
